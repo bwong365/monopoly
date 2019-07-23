@@ -8,14 +8,18 @@
     </div>
 
     <form @submit.prevent="startGame">
-      <PlayerInput
-        v-for="(player, index) in players"
-        :key="index"
-        :player="player"
-        :index="index"
-        :enableDelete="players.length > 1"
-      />
-
+      <transition-group name="slide" mode="out-in">
+        <PlayerInput
+          v-for="(player, index) in players"
+          :key="player"
+          :player="player"
+          :index="index"
+          :enableDelete="players.length > 1"
+          @name-change="onNameChange(name = $event, index)"
+          @balance-change="onChangeBalance(balance = $event, index)"
+          @delete-player="deletePlayer(index)"
+        />
+      </transition-group>
       <div class="row">
         <div class="col">
           <button
@@ -58,10 +62,21 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['addPlayer']),
+    ...mapMutations(['addPlayer', 'updateName', 'updateBalance', 'deletePlayer']),
 
     ...mapActions(['startGame']),
 
+    onNameChange(name, index) {
+      this.updateName({index, name: name.trim()})
+    },
+
+    onChangeBalance(balanceString, index) {
+      const balance = +balanceString
+      if(!balance || !Number.isInteger(balance)) {
+        return console.error('balance must be a number!')
+      }
+      this.updateBalance({index, balance})
+    },
   },
 
   beforeCreate() {
@@ -71,6 +86,31 @@ export default {
 </script>
 
 <style scoped>
+.slide-enter-active {
+  animation: enter .5s ease-out;
+}
+.slide-leave-active {
+  animation: exit .5s ease-in-out forwards;
+  position: absolute;
+}
+.slide-move {
+  transition: all .7s
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateX(-5rem)
+  }
+}
+
+@keyframes exit {
+  to {
+    opacity: 0;
+    transform: translateX(10rem)
+  }
+}
+
 .btn:disabled {
   opacity: .3
 }

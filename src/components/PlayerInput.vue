@@ -1,5 +1,6 @@
 <template>
-  <div class="row mt-3">
+  <div class="row mt-3"
+  >
     <div class="col-6">
       <div class="input-group">
         <div class="input-group-prepend">
@@ -11,11 +12,12 @@
           class="form-control"
           type="text"
           required
-          @change="onNameChange(index, $event.currentTarget)"
+          @change="$emit('name-change', $event.currentTarget.value)"
           @blur="$forceUpdate()"
         >
       </div>
     </div>
+
     <div class="col-4">
       <div class="input-group">
         <div class="input-group-prepend">
@@ -26,42 +28,31 @@
           class="form-control"
           type="text"
           required
-          @change="onChangeBalance(index, $event.currentTarget)"
+          @change="$emit('balance-change', $event.currentTarget.value)"
           @blur="$forceUpdate()"
         >
       </div>
     </div>
+
     <div class="col-2">
-      <button v-if="enableDelete" class="btn btn-danger" tabindex="-1" @click="deletePlayer(index)">X</button>
+      <button
+        v-if="enableDelete"
+        class="btn btn-danger"
+        type="button"
+        tabindex="-1"
+        @click="$emit('delete-player')"
+      >X</button>
     </div>
+    
   </div>
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
-
 export default {
   props: {
     player: Object,
     index: Number,
     enableDelete: Boolean
   },
-  
-  methods: {
-    ...mapMutations([ 'updateName', 'updateBalance', 'deletePlayer']),
-
-    onChangeBalance(index, input) {
-      const balance = +input.value
-      if(!balance || !Number.isInteger(balance)) {
-        input.value = this.players[index].balance
-        return console.error('balance must be a number!')
-      }
-      this.updateBalance({index, balance: +balance})
-    },
-
-    onNameChange(index, input) {
-      this.updateName({index, name: input.value.trim()})
-    },
-  }
 }
 </script>
