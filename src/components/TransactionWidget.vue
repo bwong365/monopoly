@@ -10,22 +10,22 @@
 
         <div class="col-12">
           <h5>
-            <strong>Cash from:</strong> {{ selectedPlayer.name }}
+            <strong>Payer: </strong>{{ selectedPlayer.name }}
           </h5>
         </div>
 
         <div class="col-12 mt-3">
-          <h5><strong>Cash to:</strong></h5>
+          <h5><strong>Recipient:</strong></h5>
           <div class="form-group">
             <select class="custom-select custom-select-md" v-model="payee" placeholder="hi">
-              <option value="-1" disabled>Cash to:</option>
+              <option value="-1" disabled>Recipient:</option>
               <option v-for="player in getPlayersExceptPayer" :key="player.id" :value="player">{{ player.name }}</option>
             </select>
           </div>
         </div>
 
         <div class="col-12 mt-2">
-          <h5><strong>How much:</strong></h5>
+          <h5><strong>Amount:</strong></h5>
           <div class="form-group">
             <input id="amount" type="text" class="form-control" v-model="amount" @blur="$forceUpdate()">
           </div>
