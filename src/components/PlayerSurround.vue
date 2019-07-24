@@ -17,7 +17,7 @@
         />
       </div>
 
-      <!-- Game content goes here -->
+      <!-- Transaction content goes here -->
       <div class="col offset-1 center-col">
         <slot></slot>
       </div>
