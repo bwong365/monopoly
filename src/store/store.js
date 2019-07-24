@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VuexPersist from 'vuex-persist'
-import router from './router'
-import players from './store/modules/players'
-import transactions from './store/modules/transactions'
+import router from '../router'
+import players from './modules/players'
+import transactions from './modules/transactions'
 
 const vuexPersist = new VuexPersist({
   key: 'monopoly',
