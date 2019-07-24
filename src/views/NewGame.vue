@@ -57,7 +57,7 @@ export default {
   },
 
   computed: {
-    ...mapState(['players']),
+    ...mapState('players', ['players']),
 
     fullGame() {
       return this.players.length >= 6
@@ -65,7 +65,7 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['addPlayer', 'updateName', 'updateBalance', 'deletePlayer']),
+    ...mapMutations('players', ['addPlayer', 'updateName', 'updateBalance', 'deletePlayer']),
 
     ...mapActions(['startGame']),
 
@@ -87,7 +87,7 @@ export default {
 
   // Initialize game upon element creation
   beforeCreate() {
-    this.$store.commit('initializeGameState')
+    this.$store.dispatch('initializeGameState')
   }
 }
 </script>

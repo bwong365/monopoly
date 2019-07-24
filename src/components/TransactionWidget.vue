@@ -55,7 +55,9 @@ export default {
   },
 
   computed: {
-    ...mapState(['transaction', 'players', 'bankPlayer']),
+    ...mapState('transactions', ['transaction', 'bankPlayer']),
+
+    ...mapState('players', ['players']),
 
     selectedPlayer() {
       return this.transaction.selectedPlayer;
@@ -108,9 +110,9 @@ export default {
   },
 
   methods: {
-    ...mapMutations(['setTransactionAmount', 'selectRecipient']),
+    ...mapMutations('transactions', ['setTransactionAmount', 'selectRecipient']),
 
-    ...mapActions(['commitTransaction']),
+    ...mapActions('transactions', ['commitTransaction']),
   }
 }
 </script>

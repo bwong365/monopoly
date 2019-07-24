@@ -54,11 +54,13 @@ export default {
   },
 
   computed: {
-    ...mapState(['players', 'transaction', 'bankPlayer']),
+    ...mapState('transactions', ['transaction', 'bankPlayer']),
+
+    ...mapState('players', ['players'])
   },
 
   methods: {
-    ...mapMutations(['selectPlayer']),
+    ...mapMutations('transactions', ['selectPlayer']),
 
     firstColPlayers(i) {
       return this.players.filter((_, index) => (index % 2 === 0))[i - 1]

@@ -36,7 +36,7 @@
 import { mapGetters } from 'vuex'
 
 export default {
-  computed: mapGetters(['validGameState'])
+  computed: mapGetters('players', ['validGameState'])
 }
 </script>
 

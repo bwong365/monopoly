@@ -13,7 +13,7 @@
 import { mapState } from 'vuex'
 
 export default {
-  computed: mapState(['transactionLogs'])
+  computed: mapState('transactions', ['transactionLogs'])
 }
 </script>
 
