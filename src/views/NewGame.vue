@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     
     <div class="row">
       <div class="col-12">
@@ -8,18 +8,21 @@
     </div>
 
     <form @submit.prevent="startGame">
+      <!-- inputs will slide in and out -->
       <transition-group name="slide" mode="out-in">
-        <PlayerInput
+        <InputPlayer
           v-for="(player, index) in players"
-          :key="player"
+          :key="player.id"
           :player="player"
           :index="index"
-          :enableDelete="players.length > 1"
+          :enableDelete="players.length > 2"
           @name-change="onNameChange(name = $event, index)"
           @balance-change="onChangeBalance(balance = $event, index)"
           @delete-player="deletePlayer(index)"
         />
       </transition-group>
+
+      <!-- Buttons behaviour should depend on form validation -->
       <div class="row">
         <div class="col">
           <button
@@ -41,11 +44,11 @@
 
 <script>
 import { mapState, mapMutations, mapActions } from 'vuex'
-import PlayerInput from '../components/PlayerInput'
+import InputPlayer from '../components/InputPlayer'
 
 export default {
   components: {
-    PlayerInput
+    InputPlayer
   },
   data() {
     return {
@@ -67,18 +70,22 @@ export default {
     ...mapActions(['startGame']),
 
     onNameChange(name, index) {
+      // Remove all whitespace on field blur
       this.updateName({index, name: name.trim()})
     },
 
     onChangeBalance(balanceString, index) {
+      // Integer check
       const balance = +balanceString
-      if(!balance || !Number.isInteger(balance)) {
-        return console.error('balance must be a number!')
+      if(!balance || !Number.isInteger(balance) || balance <= 0) {
+        return console.error('balance must be a whole number greater than zero!')
       }
+      // TODO: Choose upper limit
       this.updateBalance({index, balance})
     },
   },
 
+  // Initialize game upon element creation
   beforeCreate() {
     this.$store.commit('initializeGameState')
   }

@@ -5,20 +5,14 @@
         <img class="logo hvr-bounce-in" src="@/assets/Monopoly-Logo.svg">
       </RouterLink>
     </nav>
-      
-    <div class="container">
+
+    <main>
       <transition appear name="fade" mode="out-in">
         <RouterView/>
       </transition>
-    </div>
+    </main>
   </div>
 </template>
-
-<script>
-export default {
-
-}
-</script>
 
 <style scoped>
 .bg-conexus {

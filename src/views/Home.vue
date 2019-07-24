@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
 
     <div class="row">
       <div class="col-12 text-center">
@@ -10,15 +10,6 @@
     <div class="row">
       <div class="col-5 col-sm-4 offset-sm-1 col-lg-3 offset-lg-2 text-center">
         <RouterLink
-          to="/game"
-          class="link" 
-        >
-          <img class="player-token hvr-rotate" src="@/assets/car.png">
-          <h4>Continue an existing game</h4>
-        </RouterLink>
-      </div>
-      <div class="col-5 offset-2 col-sm-4 offset-sm-2 col-lg-3 text-center">
-        <RouterLink
           to="/newgame"
           class="link"
         >
@@ -26,10 +17,29 @@
           <h4>Start a new game</h4>
         </RouterLink>
       </div>
+      
+      <div v-if="validGameState" class="col-5 offset-2 col-sm-4 offset-sm-2 col-lg-3 text-center">
+        <RouterLink
+          to="/game"
+          class="link" 
+        >
+          <img class="player-token hvr-rotate" src="@/assets/car.png">
+          <h4>Continue an existing game</h4>
+        </RouterLink>
+      </div>
     </div>
     
   </div>
 </template>
+
+<script>
+import { mapGetters } from 'vuex'
+
+export default {
+  computed: mapGetters(['validGameState'])
+}
+</script>
+
 
 <style>
 .player-token {

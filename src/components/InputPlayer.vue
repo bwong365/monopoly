@@ -1,6 +1,6 @@
 <template>
-  <div class="row mt-3"
-  >
+  <div class="row mt-3">
+    
     <div class="col-6">
       <div class="input-group">
         <div class="input-group-prepend">
