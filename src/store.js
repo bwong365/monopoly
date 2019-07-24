@@ -98,7 +98,6 @@ export default new Vuex.Store({
 
     clearTransaction({ transaction }) {
       Vue.set(transaction, 'amount', 0)
-      Vue.set(transaction, 'recipient', {})
       Vue.set(transaction, 'selectedPlayer', {})
     }
   },

@@ -31,7 +31,8 @@
                     <strong>Cash from:</strong> {{ transaction.selectedPlayer.name }}
                   </h5>
                 </div>
-                <div class="col-12">
+                <div class="col-12 mt-3">
+                  <h5><strong>Cash to:</strong></h5>
                   <div class="form-group">
                     <select class="custom-select custom-select-md" v-model="payee" placeholder="hi">
                       <option value="-1" disabled>Cash to:</option>
@@ -39,10 +40,10 @@
                     </select>
                   </div>
                 </div>
-                <div class="col-12">
+                <div class="col-12 mt-2">
+                  <h5><strong>How much:</strong></h5>
                   <div class="form-group">
-                    <label for="amount" class="form-control" style="border: none;">How much:</label>
-                    <input id="amount" type="text" class="form-control" v-model.lazy="amount" @blur="$forceUpdate()">
+                    <input id="amount" type="text" class="form-control" v-model="amount" @blur="$forceUpdate()">
                   </div>
                 </div>
                 <div class="col-12">
@@ -111,7 +112,7 @@ export default {
     },
 
     transactionReady() {
-      return !!this.selectionWasMade && !!this.transaction.recipient.name && this.transaction.amount > 0
+      return this.selectionWasMade && !!this.transaction.recipient.name && this.transaction.amount > 0
     },
 
     playersExceptPayer() {
@@ -146,6 +147,7 @@ export default {
           amount = Math.min(amount, this.selectedPlayer.balance)
         }
         this.setTransactionAmount(amount)
+        console.log(this.transaction)
       }
     }
   },
